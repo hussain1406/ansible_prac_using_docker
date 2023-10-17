@@ -1,0 +1,11 @@
+FROM rockylinux/rockylinux:8
+
+RUN yum install openssh-server sudo vim iproute -y && \
+    ssh-keygen -A && \
+    useradd -m -s /bin/bash ansible && \
+    echo "ansible ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers && \
+    rm -rf /run/nologin
+USER ansible
+COPY ./id_rsa.pub /home/ansible/.ssh/authorized_keys
+
+CMD ["sh", "-c", "sudo /sbin/sshd -D & /bin/bash"]

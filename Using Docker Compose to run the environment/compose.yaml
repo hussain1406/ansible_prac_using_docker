@@ -1,0 +1,61 @@
+version: "3.8"
+services:
+  ansible:
+    image: hussain14/ansible:alpine
+    container_name: ansible_master_alpine
+    tty: true
+    stdin_open: true
+    networks:
+      ansible_prac_network:
+        ipv4_address: 192.168.10.2
+    volumes:
+      - ./hosts:/home/ansible/ansible/hosts
+      - ./ansible.cfg:/home/ansible/ansible/ansible.cfg
+  rockylinux8:
+    image: hussain14/rockylinux:8-ssh
+    container_name: ansible_worker_rockylinux8
+    tty: true
+    stdin_open: true
+    networks:
+      ansible_prac_network:
+        ipv4_address: 192.168.10.11
+  rockylinux9:
+    image: hussain14/rockylinux:9-ssh
+    container_name: ansible_worker_rockylinux9
+    tty: true
+    stdin_open: true
+    networks:
+      ansible_prac_network:
+        ipv4_address: 192.168.10.12
+  ubuntu18:
+    image: hussain14/ubuntu:18.04-ssh
+    container_name: ansible_worker_ubuntu18
+    tty: true
+    stdin_open: true
+    networks:
+      ansible_prac_network:
+        ipv4_address: 192.168.10.21
+  ubuntu20:
+    image: hussain14/ubuntu:20.04-ssh
+    container_name: ansible_worker_ubuntu20
+    tty: true
+    stdin_open: true
+    networks:
+      ansible_prac_network:
+        ipv4_address: 192.168.10.22
+  ubuntu22:
+    image: hussain14/ubuntu:22.04-ssh
+    container_name: ansible_worker_ubuntu22
+    tty: true
+    stdin_open: true
+    networks:
+      ansible_prac_network:
+        ipv4_address: 192.168.10.23
+networks:
+  ansible_prac_network:
+    name: ansible_prac_network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.10.0/24
+          gateway: 192.168.10.1

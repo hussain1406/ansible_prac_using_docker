@@ -1,0 +1,11 @@
+FROM ubuntu:20.04
+
+RUN apt update && \
+    apt install -y openssh-server iproute2 vim sudo  && \
+    useradd -m -s /bin/bash ansible && \
+    echo "ansible ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+USER ansible
+COPY ./id_rsa.pub /home/ansible/.ssh/authorized_keys
+
+CMD ["/bin/sh", "-c", "sudo /usr/sbin/service ssh start && /bin/bash"]

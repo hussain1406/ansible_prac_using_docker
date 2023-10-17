@@ -1,0 +1,16 @@
+FROM alpine
+
+LABEL maintainer ubuntuhussain149@gmail.com
+
+RUN apk add --no-cache ansible vim openssh-client && \
+    mkdir -p /etc/ansible/roles && \
+    ansible-config init --disabled -t all > /etc/ansible/ansible.cfg && \
+    touch /etc/ansible/hosts && \
+    adduser -D -s /bin/bash ansible && \ 
+    echo "ansible ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+USER ansible
+WORKDIR /home/ansible/ansible
+
+RUN ssh-keygen -b 2048 -t rsa -f /home/ansible/.ssh/id_rsa -q -N "" && \
+    touch hosts && ansible-config init --disabled -t all > ansible.cfg
