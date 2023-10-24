@@ -2,7 +2,7 @@ FROM alpine
 
 LABEL maintainer ubuntuhussain149@gmail.com
 
-RUN apk add --no-cache ansible vim openssh-client && \
+RUN apk add --no-cache ansible vim openssh-client sudo && \
     mkdir -p /etc/ansible/roles && \
     ansible-config init --disabled -t all > /etc/ansible/ansible.cfg && \
     touch /etc/ansible/hosts && \

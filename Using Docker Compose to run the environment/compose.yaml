@@ -9,8 +9,7 @@ services:
       ansible_prac_network:
         ipv4_address: 192.168.10.2
     volumes:
-      - ./ansible_config/hosts:/home/ansible/ansible/hosts
-      - ./ansible_config/ansible.cfg:/home/ansible/ansible/ansible.cfg
+      - ./ansible_config/:/home/ansible/ansible/
   rockylinux8:
     image: hussain14/rockylinux:8-ssh
     container_name: ansible_worker_rockylinux8
