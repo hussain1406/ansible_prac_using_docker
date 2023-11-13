@@ -8,7 +8,7 @@ docker cp ansible:/home/ansible/.ssh/id_rsa.pub .
 docker rm ansible
 for ubuntu_version in 18 20 22
 do
-	docker rmi -f $user_name/ubuntu:${ubuntu_version}.04-ssh > /dev/null 2>&1
+	docker rmi $user_name/ubuntu:${ubuntu_version}.04-ssh > /dev/null 2>&1
 	if [[ $? -ne 0 ]]
         then
                 echo "You have some docker containers which depend on $user_name/ubuntu:${ubuntu_version}.04-ssh. If you don't remove them the image will not be built."
@@ -16,7 +16,9 @@ do
                 if [[ $ans == y ]]
                 then
                         docker rm $(docker ps -aq --filter "ancestor=$user_name/ubuntu:${ubuntu_version}.04-ssh")
+			docker rmi -f $user_name/ubuntu:${ubuntu_version}.04-ssh &> /dev/null
                 else
+			echo -e "\n\nDocker Image $user_name/ubuntu:${ubuntu_version}.04-ssh is not removed and therefore this image will not be rebuilt.\nIf you want to create this image you can remove the running or stopped container first, then delete this image and create a new one instead"
                         continue
                 fi
         fi
