@@ -36,4 +36,21 @@ to test that everything is working correctly (which it should) run this inside t
 ansible all -m ping
 ```
 
+
+## Well there's more!!
+Now the things here are a bit advanced. It requires you to know `docker` and How to create Dockerfiles. And a little bit of Bash Scripting.
+
+Firstly, key things to remember are:
+
+1. The image you will get will be prefixed with `hussain14` username. You can change it in the [build.sh](Creating%20Environment%20For%20Ansible/build.sh) script by changing the value of the user_name. (Don't change it to `""`. Username should be valid user on DockerHub if you want to push to DockerHub)
+2. There are two functions for their specific use cases:
+   - First one is `remove_image` this take one argument specifically an image name to delete and handles the exceptions in interactive way
+   - Second one is `build_image` which takes exactly two arguments. i.e. first one as the name of the image and second one as the path to Dockerfile
+
+Well you can generate your own set of images with tweaks you want by first editing the respective dockerfile and then running the build.sh script from it's own directory such that if you are in the root directory of this repository then you probably should run this:
+```bash
+cd Creating\ Environment\ For\ Ansible/ && bash build.sh
+```
+You can also build your own customized images for ansible and its nodes. You just have to add the docker file for that image containing all the necessary code and then use the function inside [bulid.sh](Creating%20Environment%20For%20Ansible/build.sh) and the next time you build your images it will build it too.
+
 Happy Learning!
