@@ -67,9 +67,15 @@ Add the `docker` group to the current user so that you don't have to run docker 
 ```bash
 sudo usermod -aG docker $USER
 ```
-Logout and then login or For changes to take effect immediately run:
+Logout and then login OR For changes to take effect immediately run:
 ```bash
 newgrp docker
+```
+Nowadays, Docker Hub won't work for you unless you login to hub.docker.com and use the same id to login in docker.
+
+First Sign Up at [Docker Hub](https://hub.docker.com) then use this to login to docker in your local machine.
+```bash
+docker login
 ```
 To test that docker is running correctly. Run:
 ```bash
